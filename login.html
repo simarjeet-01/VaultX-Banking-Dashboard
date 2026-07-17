@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — VaultX Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="auth-body">
+
+  <!-- Theme toggle -->
+  <button class="auth-theme-toggle" id="themeToggle" onclick="Theme.toggle()" title="Toggle Theme">🌙</button>
+
+  <!-- Left: Branding -->
+  <div class="auth-brand">
+    <div class="brand-logo">
+      <div class="logo-icon">V</div>
+      <span class="logo-name">VaultX</span>
+    </div>
+    <div class="brand-content">
+      <h1>Your money,<br /><span>smarter.</span></h1>
+      <p>Experience next-generation digital banking with real-time analytics, instant transfers, and complete financial control — all in one place.</p>
+      <div class="brand-features">
+        <div class="brand-feature">
+          <div class="feat-icon">🔐</div>
+          <div class="feat-text">
+            <strong>Bank-Grade Security</strong>
+            <span>256-bit encryption on every transaction</span>
+          </div>
+        </div>
+        <div class="brand-feature">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-text">
+            <strong>Instant Transfers</strong>
+            <span>Send money anywhere in seconds via UPI/NEFT</span>
+          </div>
+        </div>
+        <div class="brand-feature">
+          <div class="feat-icon">📊</div>
+          <div class="feat-text">
+            <strong>Smart Analytics</strong>
+            <span>Understand your spending with visual insights</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="brand-bottom">
+      <p>© 2026 VaultX Technologies Pvt. Ltd. — Licensed by RBI (Demo)</p>
+    </div>
+  </div>
+
+  <!-- Right: Login Form -->
+  <div class="auth-form-panel">
+    <div class="auth-form-wrapper fade-in">
+      <div class="auth-form-header">
+        <h2>Welcome back 👋</h2>
+        <p>Sign in to your VaultX account. Don't have one? <a href="signup.html">Create account</a></p>
+      </div>
+
+      <form class="auth-form" id="loginForm" novalidate>
+        <!-- Demo Fill -->
+        <button type="button" class="demo-fill-btn" id="demoFill">
+          🎯 Use Demo Credentials
+        </button>
+
+        <div class="divider" style="margin: 0.25rem 0;"></div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="you@example.com" autocomplete="email" />
+          <span class="field-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-group">
+            <input type="password" id="password" class="form-control" placeholder="Enter your password" autocomplete="current-password" />
+            <button type="button" class="input-group-icon" id="togglePassword">👁️</button>
+          </div>
+          <span class="field-error"></span>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; margin-top: -0.5rem;">
+          <a href="#" style="font-size:0.8rem; color: var(--accent);" onclick="showToast('Password reset link sent to your email!','info'); return false;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="auth-btn">
+          Sign In
+        </button>
+
+        <p style="text-align:center; font-size:0.75rem; color: var(--text-muted); margin-top: -0.5rem;">
+          🔒 Protected by 256-bit SSL encryption
+        </p>
+      </form>
+
+      <div class="auth-footer">
+        <p>New to VaultX? <a href="signup.html">Create a free account</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    if (Storage.isLoggedIn()) window.location.href = 'index.html';
+  </script>
+</body>
+</html>

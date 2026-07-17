@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics — VaultX Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/analytics.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">V</div><span class="logo-text">VaultX</span></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="accounts.html" class="nav-item"><span class="nav-icon">🏦</span> Accounts</a>
+      <a href="transactions.html" class="nav-item"><span class="nav-icon">📋</span> Transactions</a>
+      <a href="cards.html" class="nav-item"><span class="nav-icon">💳</span> Cards</a>
+      <a href="transfer.html" class="nav-item"><span class="nav-icon">↗️</span> Transfer</a>
+      <div class="nav-section-label">Insights</div>
+      <a href="analytics.html" class="nav-item active"><span class="nav-icon">📊</span> Analytics</a>
+      <a href="goals.html" class="nav-item"><span class="nav-icon">🎯</span> Goals</a>
+      <div class="nav-section-label">Account</div>
+      <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+      <a href="#" class="nav-item" onclick="handleLogout()"><span class="nav-icon">🚪</span> Logout</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="window.location.href='settings.html'">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" />
+        <div class="user-info"><div class="user-name" id="sidebarUserName">Simarjeet</div><div class="user-role">Premium Member</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-search"><span class="search-icon">🔍</span><input type="text" placeholder="Search..." /></div>
+    <div class="topbar-right">
+      <button class="topbar-btn" id="themeToggle" onclick="Theme.toggle()">🌙</button>
+      <button class="topbar-btn" onclick="window.location.href='index.html'">🔔<span class="notif-count" id="notifCount">2</span></button>
+      <div class="topbar-user" onclick="window.location.href='settings.html'">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" />
+        <span id="topbarUserName">Simarjeet</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="page-container">
+      <div class="page-header">
+        <h1>Spending Analytics</h1>
+        <p>Understand your financial patterns and habits</p>
+      </div>
+
+      <!-- Top Stats -->
+      <div class="stats-grid" style="margin-bottom:2rem;" id="analyticsStats"></div>
+
+      <div class="analytics-grid">
+        <!-- Left Column -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <!-- Income vs Expense Bar Chart -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3>Income vs Expense</h3>
+              <div class="chart-period-tabs">
+                <button class="period-tab active" onclick="setPeriod('6m',this)">6M</button>
+                <button class="period-tab" onclick="setPeriod('3m',this)">3M</button>
+                <button class="period-tab" onclick="setPeriod('1m',this)">1M</button>
+              </div>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Income</div>
+              <div class="chart-legend-item"><div class="legend-dot" style="background:var(--accent-2)"></div>Expense</div>
+            </div>
+            <div class="bar-chart-wrapper" id="analyticsBarChart"></div>
+          </div>
+
+          <!-- Monthly Spending Trend -->
+          <div class="chart-card">
+            <div class="chart-card-header"><h3>Monthly Spending Trend</h3></div>
+            <div id="monthlyTrendChart" style="padding-top:0.5rem;"></div>
+          </div>
+
+          <!-- Budget Tracker -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3>Budget Tracker</h3>
+              <span class="badge badge-info">July 2026</span>
+            </div>
+            <div class="budget-grid" id="budgetGrid"></div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <!-- Spending by Category -->
+          <div class="chart-card">
+            <div class="chart-card-header"><h3>Spending by Category</h3></div>
+            <div class="donut-chart-wrapper" style="margin-bottom:1.5rem;">
+              <div class="donut-wrapper-rel">
+                <svg class="donut-svg" viewBox="0 0 36 36" id="donutSvg"></svg>
+                <div class="donut-center">
+                  <div class="dc-label">Total Spent</div>
+                  <div class="dc-value">₹38,650</div>
+                </div>
+              </div>
+            </div>
+            <div class="category-list" id="categoryBreakdown"></div>
+          </div>
+
+          <!-- Top Merchants -->
+          <div class="chart-card">
+            <div class="chart-card-header"><h3>Top Merchants</h3></div>
+            <div id="topMerchants" style="display:flex;flex-direction:column;gap:0.5rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/analytics.js"></script>
+</body>
+</html>

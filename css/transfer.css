@@ -1,0 +1,171 @@
+/* =============================================
+   VaultX Transfer Page CSS
+   ============================================= */
+
+.transfer-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* --- Transfer Form --- */
+.transfer-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.account-selector {
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.account-option {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer; transition: all var(--transition);
+  background: var(--bg-input);
+}
+.account-option:hover { border-color: var(--accent); }
+.account-option.selected {
+  border-color: var(--accent);
+  background: rgba(102,126,234,0.08);
+}
+.account-option .acc-icon { font-size: 1.4rem; width: 40px; text-align: center; }
+.account-option .acc-details { flex: 1; }
+.account-option .acc-name { font-size: 0.875rem; font-weight: 600; }
+.account-option .acc-num { font-size: 0.75rem; color: var(--text-muted); }
+.account-option .acc-bal { font-size: 0.875rem; font-weight: 700; color: var(--success); }
+.account-option .selected-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.account-option.selected .selected-dot {
+  border-color: var(--accent); background: var(--accent);
+}
+.account-option.selected .selected-dot::after {
+  content: ''; width: 6px; height: 6px;
+  border-radius: 50%; background: #fff;
+}
+
+/* --- Beneficiary Selector --- */
+.beneficiary-selector { display: flex; flex-direction: column; gap: 0.75rem; }
+.beneficiary-scroll {
+  display: flex; gap: 0.75rem; overflow-x: auto;
+  padding-bottom: 0.5rem; scrollbar-width: none;
+}
+.beneficiary-scroll::-webkit-scrollbar { display: none; }
+
+.ben-chip {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 0.875rem;
+  background: var(--bg-input); border: 1.5px solid var(--border);
+  border-radius: 99px; cursor: pointer;
+  transition: all var(--transition); flex-shrink: 0; white-space: nowrap;
+}
+.ben-chip:hover { border-color: var(--accent); }
+.ben-chip.selected { border-color: var(--accent); background: rgba(102,126,234,0.1); }
+.ben-chip img, .ben-chip .initials-sm {
+  width: 28px; height: 28px; border-radius: 50%;
+}
+.ben-chip .initials-sm {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; color: #fff;
+}
+.ben-chip .ben-name { font-size: 0.8rem; font-weight: 600; }
+.ben-chip .ben-bank { font-size: 0.7rem; color: var(--text-muted); }
+
+/* --- Amount Input --- */
+.big-amount-input {
+  display: flex; align-items: center;
+  background: var(--bg-input); border: 2px solid var(--border);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.25rem; gap: 0.5rem;
+  transition: border-color var(--transition);
+}
+.big-amount-input:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+.big-amount-input .currency-sym { font-size: 1.5rem; color: var(--text-muted); font-weight: 300; }
+.big-amount-input input {
+  flex: 1; background: none; border: none; outline: none;
+  font-size: 2rem; font-weight: 800; color: var(--text-primary);
+  letter-spacing: -1px;
+}
+.big-amount-input input::placeholder { color: var(--text-muted); }
+
+/* Quick amounts */
+.quick-amounts { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.quick-amt-btn {
+  padding: 0.35rem 0.875rem;
+  background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: 99px; font-size: 0.8rem; font-weight: 600;
+  color: var(--text-secondary); cursor: pointer;
+  transition: all var(--transition);
+}
+.quick-amt-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* --- Payment Types --- */
+.payment-type-row { display: flex; gap: 0.75rem; }
+.payment-type-btn {
+  flex: 1; padding: 0.6rem;
+  background: var(--bg-input); border: 1.5px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);
+  cursor: pointer; transition: all var(--transition); text-align: center;
+}
+.payment-type-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(102,126,234,0.08); }
+
+/* --- Transfer Summary Card --- */
+.transfer-summary { display: flex; flex-direction: column; gap: 0; }
+.summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.875rem;
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-row .sum-label { color: var(--text-muted); }
+.summary-row .sum-value { font-weight: 600; }
+.summary-row.total .sum-value { font-size: 1.1rem; color: var(--accent); }
+
+/* --- Confirmation Modal --- */
+.confirm-modal-body { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.confirm-amount-display {
+  text-align: center; padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+  border-radius: var(--border-radius); border: 1px solid rgba(102,126,234,0.2);
+}
+.confirm-amount-display .conf-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.confirm-amount-display .conf-amount { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; }
+
+.confirm-detail-row {
+  display: flex; justify-content: space-between;
+  font-size: 0.875rem; padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.confirm-detail-row:last-child { border-bottom: none; }
+.confirm-detail-row span:first-child { color: var(--text-muted); }
+.confirm-detail-row span:last-child { font-weight: 600; }
+
+/* --- Receipt --- */
+.receipt {
+  background: var(--bg-modal); border-radius: var(--border-radius);
+  padding: 2rem; display: flex; flex-direction: column; gap: 0;
+}
+.receipt-header { text-align: center; padding-bottom: 1.5rem; border-bottom: 2px dashed var(--border); }
+.receipt-header .receipt-logo { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-bottom: 0.5rem; }
+.receipt-header .receipt-status { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(67,206,162,0.15); color: var(--success); padding: 0.3rem 0.875rem; border-radius: 99px; font-size: 0.8rem; font-weight: 700; }
+.receipt-body { padding: 1.25rem 0; }
+.receipt-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 0.875rem; }
+.receipt-row .r-label { color: var(--text-muted); }
+.receipt-row .r-value { font-weight: 600; }
+.receipt-footer { text-align: center; padding-top: 1.25rem; border-top: 2px dashed var(--border); font-size: 0.75rem; color: var(--text-muted); }
+
+/* --- Recent Transfers list --- */
+.recent-transfers { display: flex; flex-direction: column; gap: 0.25rem; }
+.transfer-item {
+  display: flex; align-items: center; gap: 0.875rem;
+  padding: 0.75rem; border-radius: var(--border-radius-sm);
+  transition: background var(--transition); cursor: pointer;
+}
+.transfer-item:hover { background: var(--bg-card-hover); }

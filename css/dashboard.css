@@ -1,0 +1,219 @@
+/* =============================================
+   VaultX Dashboard CSS
+   ============================================= */
+
+/* --- Welcome Banner --- */
+.welcome-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; gap: 1rem;
+}
+.welcome-text h2 { font-size: 1.5rem; font-weight: 700; }
+.welcome-text h2 span { font-style: normal; }
+.welcome-text p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.2rem; }
+.welcome-date { color: var(--text-muted); font-size: 0.85rem; }
+
+/* --- Stats Grid --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card .stat-icon-wrapper {
+  width: 44px; height: 44px;
+  border-radius: var(--border-radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 0.75rem;
+}
+.stat-card .balance-toggle {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 0.9rem; cursor: pointer; padding: 0 0.25rem;
+  transition: color var(--transition);
+}
+.stat-card .balance-toggle:hover { color: var(--text-primary); }
+
+/* --- Main Grid Layout --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* --- My Cards Section --- */
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.section-header h3 { font-size: 1rem; font-weight: 700; }
+.section-header a { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+
+.bank-cards-row {
+  display: flex; gap: 1rem; overflow-x: auto;
+  padding-bottom: 0.5rem; scrollbar-width: none;
+}
+.bank-cards-row::-webkit-scrollbar { display: none; }
+
+/* Bank Card */
+.bank-card {
+  min-width: 220px; width: 220px; height: 135px;
+  border-radius: 16px;
+  padding: 1rem;
+  position: relative; overflow: hidden;
+  cursor: pointer; flex-shrink: 0;
+  transition: transform var(--transition), box-shadow var(--transition);
+  perspective: 1000px;
+}
+.bank-card:hover { transform: translateY(-4px) rotateX(3deg); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+.bank-card .card-network {
+  font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.85);
+  letter-spacing: 1px; line-height: 1;
+}
+.bank-card .card-chip {
+  width: 28px; height: 20px;
+  background: linear-gradient(135deg, #d4a843, #f0c060);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.bank-card .card-number {
+  font-size: 0.75rem; letter-spacing: 2px;
+  color: rgba(255,255,255,0.85); font-family: 'Courier New', monospace;
+  line-height: 1;
+}
+.bank-card .card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.bank-card .card-holder {
+  font-size: 0.68rem; color: rgba(255,255,255,0.9);
+  font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  line-height: 1;
+}
+.bank-card .card-expiry { font-size: 0.68rem; color: rgba(255,255,255,0.7); font-weight: 600; }
+.bank-card .card-type-badge {
+  position: absolute; top: 0.75rem; left: 0.875rem;
+  font-size: 0.55rem; background: rgba(255,255,255,0.18);
+  padding: 2px 6px; border-radius: 99px; color: rgba(255,255,255,0.85);
+  text-transform: uppercase; letter-spacing: 1px; display: none;
+}
+.bank-card.frozen::after {
+  content: '❄️ FROZEN';
+  position: absolute; inset: 0;
+  background: rgba(79,172,254,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 700; color: #fff;
+  border-radius: 16px; letter-spacing: 2px;
+}
+
+/* --- Recent Transactions --- */
+.txn-list { display: flex; flex-direction: column; gap: 0.25rem; }
+.txn-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.75rem;
+  border-radius: var(--border-radius-sm);
+  transition: background var(--transition); cursor: pointer;
+}
+.txn-item:hover { background: var(--bg-card-hover); }
+.txn-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  overflow: hidden; background: var(--bg-input);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.txn-icon img { width: 24px; height: 24px; object-fit: contain; }
+.txn-info { flex: 1; min-width: 0; }
+.txn-merchant { font-size: 0.875rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.txn-category { font-size: 0.75rem; color: var(--text-muted); }
+.txn-amount { font-size: 0.9rem; font-weight: 700; text-align: right; }
+.txn-date { font-size: 0.7rem; color: var(--text-muted); text-align: right; }
+
+/* --- Quick Transfer Panel --- */
+.quick-transfer { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.beneficiary-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+.beneficiary-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  cursor: pointer; padding: 0.5rem; border-radius: var(--border-radius-sm);
+  transition: background var(--transition);
+}
+.beneficiary-item:hover { background: var(--bg-card-hover); }
+.beneficiary-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  object-fit: cover; border: 2px solid var(--border);
+}
+.beneficiary-initials {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: 2px solid var(--border);
+}
+.beneficiary-name { font-size: 0.7rem; color: var(--text-secondary); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60px; }
+.add-beneficiary {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px dashed var(--border);
+  background: var(--bg-input);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: var(--text-muted);
+  transition: all var(--transition); cursor: pointer;
+}
+.add-beneficiary:hover { border-color: var(--accent); color: var(--accent); }
+
+.quick-transfer-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.quick-transfer-form .amount-input {
+  display: flex; align-items: center; gap: 0;
+  background: var(--bg-input); border: 1.5px solid var(--border);
+  border-radius: var(--border-radius-sm); overflow: hidden;
+}
+.quick-transfer-form .currency-prefix {
+  padding: 0.7rem 0.75rem; color: var(--text-muted);
+  font-size: 0.9rem; font-weight: 600; background: none; border: none;
+}
+.quick-transfer-form input {
+  flex: 1; background: none; border: none;
+  color: var(--text-primary); font-size: 1rem; font-weight: 700;
+  padding: 0.7rem 0.5rem 0.7rem 0;
+}
+.quick-transfer-form input:focus { outline: none; }
+
+/* --- Spending Chart (mini bar chart) --- */
+.spending-chart { display: flex; flex-direction: column; gap: 0.75rem; }
+.chart-bar-row {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.8rem;
+}
+.chart-bar-label { width: 2rem; color: var(--text-muted); font-size: 0.75rem; }
+.chart-bar-track { flex: 1; height: 8px; background: var(--bg-input); border-radius: 99px; overflow: hidden; }
+.chart-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 1s ease; }
+.chart-bar-value { width: 5rem; text-align: right; color: var(--text-secondary); font-size: 0.75rem; }
+
+/* --- Income vs Expense Chart --- */
+.income-expense-chart { width: 100%; }
+.chart-legend {
+  display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap;
+}
+.chart-legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Canvas chart area */
+.canvas-wrapper { position: relative; width: 100%; }
+canvas { width: 100% !important; }
+
+/* --- Account Summary Cards (on accounts page) --- */
+.account-card {
+  border-radius: var(--border-radius-lg);
+  padding: 1.75rem;
+  position: relative; overflow: hidden;
+  color: #fff; min-height: 160px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  cursor: pointer; transition: transform var(--transition), box-shadow var(--transition);
+}
+.account-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+.account-card .acc-type { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
+.account-card .acc-balance { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+.account-card .acc-number { font-size: 0.8rem; opacity: 0.7; letter-spacing: 2px; font-family: monospace; }
+.account-card .acc-bank-logo { position: absolute; top: 1.25rem; right: 1.25rem; width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; }

@@ -1,0 +1,156 @@
+/* =============================================
+   VaultX Cards Page CSS
+   ============================================= */
+
+.cards-page-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* --- Full-size Card UI --- */
+.card-display {
+  width: 100%; max-width: 380px;
+  aspect-ratio: 1.586;
+  border-radius: 20px;
+  padding: 1.5rem;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+}
+.card-display:hover { box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+
+/* 3D tilt effect via JS */
+.card-display .card-shine {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none; border-radius: 20px;
+}
+.card-display .card-bg-pattern {
+  position: absolute; top: -30%; right: -20%;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.card-display .card-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.card-display .card-brand {
+  font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.9);
+  letter-spacing: 2px;
+}
+.card-display .card-network-logo {
+  height: 28px; width: auto; object-fit: contain;
+}
+.card-display .chip-and-contactless {
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
+}
+.card-display .chip {
+  width: 36px; height: 26px;
+  background: linear-gradient(135deg, #d4a843 0%, #f0c060 50%, #c8962e 100%);
+  border-radius: 5px;
+}
+.card-display .contactless {
+  font-size: 1.1rem; color: rgba(255,255,255,0.6);
+}
+.card-display .card-number-full {
+  font-size: 1.05rem; letter-spacing: 4px;
+  color: rgba(255,255,255,0.9);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 1rem;
+}
+.card-display .card-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.card-display .card-holder-info .label {
+  font-size: 0.6rem; text-transform: uppercase;
+  letter-spacing: 1.5px; color: rgba(255,255,255,0.5);
+}
+.card-display .card-holder-info .value {
+  font-size: 0.8rem; font-weight: 700;
+  color: rgba(255,255,255,0.9); letter-spacing: 1px; text-transform: uppercase;
+}
+.card-display .card-expiry-info { text-align: right; }
+
+/* --- Card Selector Tabs --- */
+.card-tabs {
+  display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+}
+.card-tab {
+  padding: 0.4rem 1rem;
+  border-radius: 99px; font-size: 0.8rem; font-weight: 600;
+  border: 1.5px solid var(--border);
+  background: var(--bg-input); color: var(--text-secondary);
+  cursor: pointer; transition: all var(--transition);
+}
+.card-tab.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent; color: #fff;
+  box-shadow: 0 4px 16px rgba(102,126,234,0.3);
+}
+
+/* --- Card Actions --- */
+.card-actions-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.card-action-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  padding: 0.875rem 0.5rem;
+  background: var(--bg-input); border: 1.5px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer; transition: all var(--transition);
+  font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
+}
+.card-action-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(102,126,234,0.05); }
+.card-action-btn .action-icon { font-size: 1.3rem; }
+.card-action-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
+
+/* Freeze state */
+.card-action-btn.frozen { border-color: var(--info); color: var(--info); background: rgba(79,172,254,0.05); }
+
+/* --- Spend Limit Bar --- */
+.spend-limit-bar {
+  background: var(--bg-input); border-radius: 99px;
+  height: 8px; overflow: hidden; margin: 0.5rem 0;
+}
+.spend-limit-fill {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--success), var(--accent));
+  transition: width 1s ease;
+}
+.spend-limit-fill.high { background: linear-gradient(90deg, var(--warning), var(--danger)); }
+
+/* --- Card Details Panel --- */
+.card-detail-list { display: flex; flex-direction: column; }
+.card-detail-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.875rem;
+}
+.card-detail-item:last-child { border-bottom: none; }
+.card-detail-item .detail-label { color: var(--text-muted); }
+.card-detail-item .detail-value { font-weight: 600; }
+.card-detail-item .detail-value.reveal-btn {
+  cursor: pointer; background: none; border: none;
+  color: var(--accent); font-size: 0.8rem; font-weight: 600;
+}
+
+/* --- Virtual Card Badge --- */
+.virtual-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(67,206,162,0.15); color: var(--success);
+  padding: 0.2rem 0.7rem; border-radius: 99px;
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* --- Card Limit Slider --- */
+.limit-slider {
+  width: 100%; accent-color: var(--accent);
+  height: 4px; cursor: pointer;
+}

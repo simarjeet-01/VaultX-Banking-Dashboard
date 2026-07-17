@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — VaultX Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">V</div><span class="logo-text">VaultX</span></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="accounts.html" class="nav-item"><span class="nav-icon">🏦</span> Accounts</a>
+      <a href="transactions.html" class="nav-item"><span class="nav-icon">📋</span> Transactions</a>
+      <a href="cards.html" class="nav-item"><span class="nav-icon">💳</span> Cards</a>
+      <a href="transfer.html" class="nav-item"><span class="nav-icon">↗️</span> Transfer</a>
+      <div class="nav-section-label">Insights</div>
+      <a href="analytics.html" class="nav-item"><span class="nav-icon">📊</span> Analytics</a>
+      <a href="goals.html" class="nav-item"><span class="nav-icon">🎯</span> Goals</a>
+      <div class="nav-section-label">Account</div>
+      <a href="settings.html" class="nav-item active"><span class="nav-icon">⚙️</span> Settings</a>
+      <a href="#" class="nav-item" onclick="handleLogout()"><span class="nav-icon">🚪</span> Logout</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" id="sidebarAvatar" />
+        <div class="user-info"><div class="user-name" id="sidebarUserName">Simarjeet</div><div class="user-role">Premium Member</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-search"><span class="search-icon">🔍</span><input type="text" placeholder="Search..." /></div>
+    <div class="topbar-right">
+      <button class="topbar-btn" id="themeToggle" onclick="Theme.toggle()">🌙</button>
+      <button class="topbar-btn" onclick="window.location.href='index.html'">🔔</button>
+      <div class="topbar-user">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" id="topbarAvatar" />
+        <span id="topbarUserName">Simarjeet</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="page-container">
+      <div class="page-header">
+        <h1>Settings</h1>
+        <p>Manage your account preferences and security</p>
+      </div>
+
+      <div class="settings-layout">
+        <!-- Settings Sidebar Nav -->
+        <div class="settings-sidebar">
+          <div class="settings-nav-item active" onclick="scrollToSection('profile')">👤 Profile</div>
+          <div class="settings-nav-item" onclick="scrollToSection('security')">🔐 Security</div>
+          <div class="settings-nav-item" onclick="scrollToSection('notifications')">🔔 Notifications</div>
+          <div class="settings-nav-item" onclick="scrollToSection('appearance')">🎨 Appearance</div>
+          <div class="settings-nav-item" onclick="scrollToSection('privacy')">🛡️ Privacy</div>
+          <div class="settings-nav-item" onclick="scrollToSection('about')">ℹ️ About</div>
+        </div>
+
+        <!-- Settings Content -->
+        <div>
+
+          <!-- Profile Section -->
+          <div class="settings-section" id="profile">
+            <div class="settings-section-title">Profile Information</div>
+            <div class="profile-avatar-edit" style="margin-bottom:1.5rem;">
+              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4"
+                alt="Profile" class="avatar-large" id="profileAvatar" />
+              <div>
+                <div id="profileName" style="font-size:1.1rem;font-weight:700;"></div>
+                <div id="profileEmail" style="font-size:0.85rem;color:var(--text-muted);margin:0.2rem 0;"></div>
+                <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
+                  <button class="btn btn-secondary btn-sm" onclick="showToast('Photo upload coming soon!','info')">📷 Change Photo</button>
+                  <span class="badge badge-success">✓ KYC Verified</span>
+                </div>
+              </div>
+            </div>
+            <form id="profileForm" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+              <div class="form-group"><label>Full Name</label><input type="text" class="form-control" id="settingName" /></div>
+              <div class="form-group"><label>Email</label><input type="email" class="form-control" id="settingEmail" /></div>
+              <div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="settingPhone" /></div>
+              <div class="form-group"><label>Date of Birth</label><input type="date" class="form-control" value="1998-03-15" /></div>
+              <div class="form-group"><label>PAN Number</label><input type="text" class="form-control" value="ABCDE1234F" placeholder="ABCDE1234F" /></div>
+              <div class="form-group"><label>Aadhaar (Last 4)</label><input type="text" class="form-control" value="••••" /></div>
+              <div style="grid-column:1/-1;">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Security Section -->
+          <div class="settings-section" id="security">
+            <div class="settings-section-title">Security</div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Change Password</div>
+                <div class="row-desc">Update your account password</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="showToast('Password change email sent!','success')">Change →</button>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Two-Factor Authentication</div>
+                <div class="row-desc">Add an extra layer of security with OTP</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="showToast('2FA settings updated','info')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Biometric Login</div>
+                <div class="row-desc">Login with fingerprint or Face ID</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="showToast('Biometric login updated','info')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Active Sessions</div>
+                <div class="row-desc">MacBook Air — Delhi, IN • Active now</div>
+              </div>
+              <button class="btn btn-danger btn-sm" onclick="showToast('All other sessions terminated','success')">Terminate All</button>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Transaction PIN</div>
+                <div class="row-desc">4-digit PIN for authorizing payments</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="showToast('PIN change OTP sent to your mobile','info')">Change PIN →</button>
+            </div>
+          </div>
+
+          <!-- Notifications Section -->
+          <div class="settings-section" id="notifications">
+            <div class="settings-section-title">Notifications</div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Transaction Alerts</div>
+                <div class="row-desc">Get notified for every debit/credit</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="showToast('Preference saved','info')" /><span class="toggle-slider"></span></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Bill Payment Reminders</div>
+                <div class="row-desc">3-day advance reminder for due bills</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="showToast('Preference saved','info')" /><span class="toggle-slider"></span></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Savings Goal Updates</div>
+                <div class="row-desc">Weekly progress on your goals</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="showToast('Preference saved','info')" /><span class="toggle-slider"></span></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Promotional Offers</div>
+                <div class="row-desc">Cashback, rewards and special offers</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" onchange="showToast('Preference saved','info')" /><span class="toggle-slider"></span></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Email Newsletters</div>
+                <div class="row-desc">Monthly financial digest</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" onchange="showToast('Preference saved','info')" /><span class="toggle-slider"></span></label>
+            </div>
+          </div>
+
+          <!-- Appearance Section -->
+          <div class="settings-section" id="appearance">
+            <div class="settings-section-title">Appearance</div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Dark Mode</div>
+                <div class="row-desc">Toggle between dark and light theme</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle" onchange="Theme.toggle(); updateDarkToggle()" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Accent Color</div>
+                <div class="row-desc">Choose your preferred accent color</div>
+              </div>
+              <div style="display:flex;gap:0.5rem;">
+                <button onclick="setAccent('#667eea')" style="width:24px;height:24px;border-radius:50%;background:#667eea;border:2px solid #fff;cursor:pointer;"></button>
+                <button onclick="setAccent('#f093fb')" style="width:24px;height:24px;border-radius:50%;background:#f093fb;border:2px solid transparent;cursor:pointer;"></button>
+                <button onclick="setAccent('#43cea2')" style="width:24px;height:24px;border-radius:50%;background:#43cea2;border:2px solid transparent;cursor:pointer;"></button>
+                <button onclick="setAccent('#f7971e')" style="width:24px;height:24px;border-radius:50%;background:#f7971e;border:2px solid transparent;cursor:pointer;"></button>
+                <button onclick="setAccent('#4facfe')" style="width:24px;height:24px;border-radius:50%;background:#4facfe;border:2px solid transparent;cursor:pointer;"></button>
+              </div>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Compact View</div>
+                <div class="row-desc">Reduce spacing for more content</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" onchange="showToast('View updated','info')" /><span class="toggle-slider"></span></label>
+            </div>
+          </div>
+
+          <!-- Privacy Section -->
+          <div class="settings-section" id="privacy">
+            <div class="settings-section-title">Privacy</div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Hide Balance by Default</div>
+                <div class="row-desc">Mask balance until you tap to reveal</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" onchange="showToast('Preference saved','info')" /><span class="toggle-slider"></span></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Analytics & Usage Data</div>
+                <div class="row-desc">Help us improve with anonymous data</div>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="showToast('Preference saved','info')" /><span class="toggle-slider"></span></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label">Download My Data</div>
+                <div class="row-desc">Export all your account data as JSON</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="downloadUserData()">📥 Export</button>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="row-label" style="color:var(--danger);">Delete Account</div>
+                <div class="row-desc">Permanently close your VaultX account</div>
+              </div>
+              <button class="btn btn-danger btn-sm" onclick="showToast('Please contact support to close your account','error')">Delete</button>
+            </div>
+          </div>
+
+          <!-- About Section -->
+          <div class="settings-section" id="about">
+            <div class="settings-section-title">About VaultX</div>
+            <div class="settings-row"><div class="settings-row-info"><div class="row-label">Version</div></div><span style="font-size:0.875rem;color:var(--text-muted);">VaultX v2.6.0 (Demo)</span></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="row-label">License</div></div><span class="badge badge-accent">RBI Regulated (Demo)</span></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="row-label">Support</div></div><a href="mailto:support@vaultx.in" style="font-size:0.875rem;">support@vaultx.in</a></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="row-label">Terms & Conditions</div></div><a href="#" style="font-size:0.875rem;" onclick="showToast('Opening T&C...','info');return false;">View →</a></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="row-label">Privacy Policy</div></div><a href="#" style="font-size:0.875rem;" onclick="showToast('Opening Privacy Policy...','info');return false;">View →</a></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/theme.js"></script>
+<script>
+requireAuth();
+document.addEventListener('DOMContentLoaded', () => {
+  Theme.init();
+  const user = Storage.getUser();
+  document.getElementById('sidebarUserName').textContent = user.name.split(' ')[0];
+  document.getElementById('topbarUserName').textContent = user.name.split(' ')[0];
+  document.getElementById('profileName').textContent = user.name;
+  document.getElementById('profileEmail').textContent = user.email;
+  document.getElementById('settingName').value = user.name;
+  document.getElementById('settingEmail').value = user.email;
+  document.getElementById('settingPhone').value = user.phone;
+
+  // Dark mode toggle reflect current state
+  document.getElementById('darkModeToggle').checked = Storage.getTheme() === 'dark';
+
+  document.getElementById('profileForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const u = Storage.getUser();
+    u.name = document.getElementById('settingName').value;
+    u.email = document.getElementById('settingEmail').value;
+    u.phone = document.getElementById('settingPhone').value;
+    Storage.setUser(u);
+    showToast('Profile updated successfully!', 'success');
+  });
+});
+
+function updateDarkToggle() {
+  document.getElementById('darkModeToggle').checked = Storage.getTheme() === 'dark';
+}
+
+function setAccent(color) {
+  document.documentElement.style.setProperty('--accent', color);
+  showToast('Accent color updated!', 'success');
+}
+
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function downloadUserData() {
+  const data = {
+    user: Storage.getUser(),
+    accounts: Storage.getAccounts(),
+    transactions: Storage.getTransactions(),
+    goals: Storage.getGoals(),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'vaultx-data-export.json';
+  a.click();
+  showToast('Data exported successfully!', 'success');
+}
+
+function handleLogout() { Storage.clearSession(); window.location.href = 'login.html'; }
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+function showToast(message, type = 'info') {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `<span>${type==='success'?'✅':type==='error'?'❌':'ℹ️'}</span><span>${message}</span>`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+}
+</script>
+</body>
+</html>

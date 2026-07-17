@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transfer — VaultX Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/transfer.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">V</div><span class="logo-text">VaultX</span></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="accounts.html" class="nav-item"><span class="nav-icon">🏦</span> Accounts</a>
+      <a href="transactions.html" class="nav-item"><span class="nav-icon">📋</span> Transactions</a>
+      <a href="cards.html" class="nav-item"><span class="nav-icon">💳</span> Cards</a>
+      <a href="transfer.html" class="nav-item active"><span class="nav-icon">↗️</span> Transfer</a>
+      <div class="nav-section-label">Insights</div>
+      <a href="analytics.html" class="nav-item"><span class="nav-icon">📊</span> Analytics</a>
+      <a href="goals.html" class="nav-item"><span class="nav-icon">🎯</span> Goals</a>
+      <div class="nav-section-label">Account</div>
+      <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+      <a href="#" class="nav-item" onclick="handleLogout()"><span class="nav-icon">🚪</span> Logout</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="window.location.href='settings.html'">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" />
+        <div class="user-info"><div class="user-name" id="sidebarUserName">Simarjeet</div><div class="user-role">Premium Member</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-search"><span class="search-icon">🔍</span><input type="text" placeholder="Search..." /></div>
+    <div class="topbar-right">
+      <button class="topbar-btn" id="themeToggle" onclick="Theme.toggle()">🌙</button>
+      <button class="topbar-btn" onclick="window.location.href='index.html'">🔔<span class="notif-count" id="notifCount">2</span></button>
+      <div class="topbar-user" onclick="window.location.href='settings.html'">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" />
+        <span id="topbarUserName">Simarjeet</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="page-container">
+      <div class="page-header">
+        <h1>Transfer Money</h1>
+        <p>Send money instantly to anyone via UPI, NEFT, or IMPS</p>
+      </div>
+
+      <div class="transfer-layout">
+        <!-- Left: Transfer Form -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <div class="card">
+            <h3 style="margin-bottom:1.25rem;">New Transfer</h3>
+            <form class="transfer-form" id="transferForm">
+
+              <!-- Payment Type -->
+              <div class="form-group">
+                <label>Payment Method</label>
+                <div class="payment-type-row">
+                  <button type="button" class="payment-type-btn active" onclick="selectPayType('UPI',this)">📱 UPI</button>
+                  <button type="button" class="payment-type-btn" onclick="selectPayType('NEFT',this)">🏦 NEFT</button>
+                  <button type="button" class="payment-type-btn" onclick="selectPayType('IMPS',this)">⚡ IMPS</button>
+                  <button type="button" class="payment-type-btn" onclick="selectPayType('RTGS',this)">💼 RTGS</button>
+                </div>
+              </div>
+
+              <!-- From Account -->
+              <div class="form-group">
+                <label>From Account</label>
+                <div class="account-selector" id="fromAccSelector"></div>
+              </div>
+
+              <!-- Beneficiary -->
+              <div class="form-group">
+                <label>Send To</label>
+                <div class="beneficiary-selector">
+                  <div class="beneficiary-scroll" id="benScroll"></div>
+                  <button type="button" class="btn btn-ghost btn-sm" style="align-self:flex-start;" onclick="openAddBenModal()">
+                    + Add New Beneficiary
+                  </button>
+                </div>
+              </div>
+
+              <!-- Amount -->
+              <div class="form-group">
+                <label>Amount</label>
+                <div class="big-amount-input">
+                  <span class="currency-sym">₹</span>
+                  <input type="number" id="transferAmount" placeholder="0" min="1" oninput="updateSummary()" />
+                </div>
+                <div class="quick-amounts" style="margin-top:0.5rem;" id="quickAmounts">
+                  <button type="button" class="quick-amt-btn" onclick="setAmount(500)">₹500</button>
+                  <button type="button" class="quick-amt-btn" onclick="setAmount(1000)">₹1,000</button>
+                  <button type="button" class="quick-amt-btn" onclick="setAmount(2000)">₹2,000</button>
+                  <button type="button" class="quick-amt-btn" onclick="setAmount(5000)">₹5,000</button>
+                  <button type="button" class="quick-amt-btn" onclick="setAmount(10000)">₹10,000</button>
+                </div>
+              </div>
+
+              <!-- Note -->
+              <div class="form-group">
+                <label>Add Note (Optional)</label>
+                <input type="text" class="form-control" id="transferNote" placeholder="e.g. Dinner payment, Rent..." />
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg btn-block">
+                Review Transfer →
+              </button>
+            </form>
+          </div>
+
+          <!-- Recent Transfers -->
+          <div class="card">
+            <div class="section-header"><h3>Recent Transfers</h3></div>
+            <div class="recent-transfers" id="recentTransfers"></div>
+          </div>
+        </div>
+
+        <!-- Right: Summary + Beneficiaries -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <!-- Transfer Summary -->
+          <div class="card">
+            <h3 style="margin-bottom:1rem;">Transfer Summary</h3>
+            <div class="transfer-summary" id="transferSummary">
+              <div class="summary-row"><span class="sum-label">From</span><span class="sum-value" id="sumFrom">—</span></div>
+              <div class="summary-row"><span class="sum-label">To</span><span class="sum-value" id="sumTo">—</span></div>
+              <div class="summary-row"><span class="sum-label">Method</span><span class="sum-value" id="sumMethod">UPI</span></div>
+              <div class="summary-row"><span class="sum-label">Amount</span><span class="sum-value" id="sumAmount">₹0.00</span></div>
+              <div class="summary-row"><span class="sum-label">Charges</span><span class="sum-value">₹0.00</span></div>
+              <div class="summary-row total"><span class="sum-label">Total Debit</span><span class="sum-value" id="sumTotal">₹0.00</span></div>
+            </div>
+          </div>
+
+          <!-- Saved Beneficiaries -->
+          <div class="card">
+            <div class="section-header"><h3>Saved Beneficiaries</h3></div>
+            <div id="savedBenList" style="display:flex;flex-direction:column;gap:0.25rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Confirm Transfer</h3>
+      <button class="modal-close" onclick="closeModal('confirmModal')">✕</button>
+    </div>
+    <div class="confirm-modal-body" id="confirmModalBody"></div>
+  </div>
+</div>
+
+<!-- Receipt Modal -->
+<div class="modal-overlay" id="receiptModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Transaction Receipt</h3>
+      <button class="modal-close" onclick="closeModal('receiptModal')">✕</button>
+    </div>
+    <div id="receiptBody"></div>
+  </div>
+</div>
+
+<!-- Add Beneficiary Modal -->
+<div class="modal-overlay" id="addBenModal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <h3>Add Beneficiary</h3>
+      <button class="modal-close" onclick="closeModal('addBenModal')">✕</button>
+    </div>
+    <form id="addBenForm" style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="form-group"><label>Full Name</label><input type="text" class="form-control" id="benName" placeholder="e.g. Rahul Sharma" /></div>
+      <div class="form-group"><label>Bank Name</label><input type="text" class="form-control" id="benBank" placeholder="e.g. SBI, HDFC..." /></div>
+      <div class="form-group"><label>Account / UPI ID</label><input type="text" class="form-control" id="benAcc" placeholder="e.g. rahul@sbi or 9876543210" /></div>
+      <button type="submit" class="btn btn-primary btn-block">Add Beneficiary</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/transfer.js"></script>
+</body>
+</html>

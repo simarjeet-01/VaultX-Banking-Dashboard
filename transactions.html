@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions — VaultX Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">V</div><span class="logo-text">VaultX</span></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="accounts.html" class="nav-item"><span class="nav-icon">🏦</span> Accounts</a>
+      <a href="transactions.html" class="nav-item active"><span class="nav-icon">📋</span> Transactions</a>
+      <a href="cards.html" class="nav-item"><span class="nav-icon">💳</span> Cards</a>
+      <a href="transfer.html" class="nav-item"><span class="nav-icon">↗️</span> Transfer</a>
+      <div class="nav-section-label">Insights</div>
+      <a href="analytics.html" class="nav-item"><span class="nav-icon">📊</span> Analytics</a>
+      <a href="goals.html" class="nav-item"><span class="nav-icon">🎯</span> Goals</a>
+      <div class="nav-section-label">Account</div>
+      <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+      <a href="#" class="nav-item" onclick="handleLogout()"><span class="nav-icon">🚪</span> Logout</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="window.location.href='settings.html'">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" />
+        <div class="user-info"><div class="user-name" id="sidebarUserName">Simarjeet</div><div class="user-role">Premium Member</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search transactions..." id="txnSearch" oninput="filterTxns()" />
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn" id="themeToggle" onclick="Theme.toggle()">🌙</button>
+      <button class="topbar-btn" onclick="window.location.href='index.html'">🔔<span class="notif-count" id="notifCount">2</span></button>
+      <div class="topbar-user" onclick="window.location.href='settings.html'">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Simarjeet&backgroundColor=b6e3f4" alt="User" />
+        <span id="topbarUserName">Simarjeet</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="page-container">
+      <div class="page-header">
+        <h1>Transactions</h1>
+        <p>Your complete transaction history</p>
+      </div>
+
+      <!-- Summary Stats -->
+      <div class="stats-grid" style="margin-bottom:1.5rem;" id="txnStats"></div>
+
+      <!-- Filters -->
+      <div class="card" style="margin-bottom:1.5rem;">
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; flex:1;">
+            <button class="card-tab active" data-filter="all" onclick="setFilter('all',this)">All</button>
+            <button class="card-tab" data-filter="Income" onclick="setFilter('Income',this)">💰 Income</button>
+            <button class="card-tab" data-filter="Shopping" onclick="setFilter('Shopping',this)">🛍️ Shopping</button>
+            <button class="card-tab" data-filter="Food" onclick="setFilter('Food',this)">🍔 Food</button>
+            <button class="card-tab" data-filter="Transport" onclick="setFilter('Transport',this)">🚗 Transport</button>
+            <button class="card-tab" data-filter="Bills" onclick="setFilter('Bills',this)">💡 Bills</button>
+            <button class="card-tab" data-filter="Entertainment" onclick="setFilter('Entertainment',this)">🎬 Entertainment</button>
+            <button class="card-tab" data-filter="Transfer" onclick="setFilter('Transfer',this)">↗️ Transfer</button>
+          </div>
+          <select class="form-control" style="max-width:150px;" id="accFilter" onchange="filterTxns()">
+            <option value="all">All Accounts</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" onclick="exportCSV()">📥 Export CSV</button>
+        </div>
+      </div>
+
+      <!-- Transactions List -->
+      <div class="card">
+        <div id="txnContainer"></div>
+        <div id="txnEmpty" class="hidden" style="padding:3rem;text-align:center;color:var(--text-muted);">
+          <div style="font-size:3rem;margin-bottom:1rem;">🔍</div>
+          <div>No transactions found</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Transaction Detail Modal -->
+<div class="modal-overlay" id="txnDetailModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Transaction Details</h3>
+      <button class="modal-close" onclick="closeModal('txnDetailModal')">✕</button>
+    </div>
+    <div id="txnDetailBody"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/transactions.js"></script>
+</body>
+</html>
